@@ -11,7 +11,8 @@ const startCompiler = (content: string) => {
   const scriptCode = script || scriptSetup;
   const isSetup = script ? false : scriptSetup.setup;
   complierScript(scriptCode, isSetup);
-  complierTemplate(template);
+  const compilerResultFunctions = complierTemplate(template);
+  console.log(compilerResultFunctions);
   complierStyle(styles);
 };
 
