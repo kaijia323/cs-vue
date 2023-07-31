@@ -1,0 +1,25 @@
+{
+  "name": "cs-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.7",
+    "vue-tsc": "^1.8.8"
+  },
+  "dependencies": {
+    "@babel/standalone": "^7.22.9",
+    "vue": "^3.3.4",
+    "vue2": "npm:vue@2.7.14",
+    "vue-template-compiler": "^2.7.14"
+  }
+}
