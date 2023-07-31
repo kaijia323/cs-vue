@@ -1,6 +1,7 @@
-const complierScript = (content: string, isSetup: boolean = false) => {
-  //
-  console.log(content, isSetup);
+import { SFCBlock } from "vue-template-compiler";
+
+const complierScript = (script?: SFCBlock, isSetup: boolean = false) => {
+  console.log("complierScript", script, isSetup);
 };
 
 export default complierScript;
