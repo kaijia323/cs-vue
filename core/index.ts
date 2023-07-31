@@ -10,7 +10,8 @@ const startCompiler = (content: string) => {
   const { script, scriptSetup, template, styles } = sfcDescriptor;
   const scriptCode = script || scriptSetup;
   const isSetup = script ? false : scriptSetup.setup;
-  complierScript(scriptCode, isSetup);
+  const compilerResultScript = complierScript(scriptCode, isSetup);
+  console.log("compilerResultScript", compilerResultScript);
   const compilerResultFunctions = complierTemplate(template);
   console.log("compilerResultFunctions", compilerResultFunctions);
   const compilerResultStyle = complierStyle(styles);

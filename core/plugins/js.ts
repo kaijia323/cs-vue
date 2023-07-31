@@ -1,4 +1,5 @@
 import { PluginItem } from "@babel/core";
+import type { Identifier, VariableDeclaration } from "babel-types";
 
 type MyPlugin = (item: { types: typeof import("babel-types") }) => PluginItem;
 
@@ -13,20 +14,15 @@ const scriptPlugin = (): MyPlugin => {
 
 const scriptSetupPlugin = (): MyPlugin => {
   return ({ types: t }) => {
-    console.log(t);
     return {
       visitor: {
         Program(path) {
           const body = path.node.body.filter(item =>
             t.isVariableDeclaration(item)
-          );
-          console.log(body);
-          // const names = body.map(item => {
-          //   return item.type === "VariableDeclaration"
-          //     ? item.declarations[0].type === "VariableDeclarator" &&
-          //         item.declarations[0].id.name
-          //     : "";
-          // });
+          ) as VariableDeclaration[];
+          const names = body.map(item => {
+            return (item.declarations[0].id as Identifier).name;
+          });
           const v = t.expressionStatement(
             t.newExpression(t.identifier("Vue2"), [
               t.objectExpression([
@@ -42,23 +38,16 @@ const scriptSetupPlugin = (): MyPlugin => {
                   t.identifier("setup"),
                   [],
                   t.blockStatement([
-                    // @ts-ignore
                     ...body,
-                    // return
-                    // @ts-ignore
                     t.returnStatement(
                       t.objectExpression([
-                        t.objectProperty(
-                          t.identifier("a"),
-                          t.identifier("a"),
-                          false,
-                          true
-                        ),
-                        t.objectProperty(
-                          t.identifier("handleClick"),
-                          t.identifier("handleClick"),
-                          false,
-                          true
+                        ...names.map(name =>
+                          t.objectProperty(
+                            t.identifier(name),
+                            t.identifier(name),
+                            false,
+                            true
+                          )
                         ),
                       ])
                     ),
@@ -67,7 +56,6 @@ const scriptSetupPlugin = (): MyPlugin => {
               ]),
             ])
           );
-          console.log(v);
           // @ts-ignore
           path.node.body = [v];
         },

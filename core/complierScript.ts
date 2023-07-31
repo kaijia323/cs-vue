@@ -10,17 +10,18 @@ const complierScript = (script?: SFCBlock, isSetup: boolean = false) => {
       code: null,
     };
   if (isSetup) {
-    _complierSetup(script.content);
+    return _complierSetup(script.content);
   }
 };
 
 const _complierSetup = (content: string) => {
-  console.log(content);
   const s = transform(content, {
     presets: [["es2016"]],
     plugins: [scriptSetupPlugin()],
   });
-  console.log("_complierSetup\n", s.code);
+  return {
+    code: s.code,
+  };
 };
 
 export default complierScript;
