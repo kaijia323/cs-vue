@@ -13,7 +13,8 @@ const startCompiler = (content: string) => {
   complierScript(scriptCode, isSetup);
   const compilerResultFunctions = complierTemplate(template);
   console.log(compilerResultFunctions);
-  complierStyle(styles);
+  const compilerResultStyle = complierStyle(styles);
+  console.log(compilerResultStyle);
 };
 
 export { startCompiler };
