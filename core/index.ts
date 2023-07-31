@@ -3,6 +3,14 @@ import complierScript from "./complierScript";
 import complierTemplate from "./complierTemplate";
 import complierStyle from "./compilerStyle";
 
+interface IParams {
+  Vue?: any;
+  ref?: any;
+  reactive?: any;
+  computed?: any;
+  watch?: any;
+}
+
 const startCompiler = (content: string) => {
   const sfcDescriptor = parseComponent(content);
   console.log("sfcDescriptor", sfcDescriptor);
@@ -16,6 +24,28 @@ const startCompiler = (content: string) => {
   console.log("compilerResultFunctions", compilerResultFunctions);
   const compilerResultStyle = complierStyle(styles);
   console.log("compilerResultStyle", compilerResultStyle);
+
+  const fn = new Function(
+    "Vue2",
+    "ref",
+    "reactive",
+    "computed",
+    "watch",
+    "render",
+    `return ${compilerResultScript?.code}`
+  );
+  console.log("fn: ", fn);
+  return (params: IParams) => {
+    return fn.call(
+      undefined,
+      params.Vue,
+      params.ref,
+      params.reactive,
+      params.computed,
+      params.watch,
+      compilerResultFunctions.code?.render
+    );
+  };
 };
 
 export { startCompiler };

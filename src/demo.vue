@@ -4,7 +4,7 @@ import { ref } from "vue";
 const name = ref("名字");
 const handleClick = () => {
   name.value = "油麦菜";
-  console.log(handleClick);
+  console.log("handleClick");
 };
 </script>
 

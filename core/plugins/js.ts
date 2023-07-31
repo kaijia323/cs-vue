@@ -28,11 +28,17 @@ const scriptSetupPlugin = (): MyPlugin => {
               t.objectExpression([
                 t.objectProperty(
                   t.identifier("render"),
-                  t.memberExpression(
-                    t.identifier("template"),
-                    t.identifier("render")
-                  )
+                  t.identifier("render"),
+                  false,
+                  true
                 ),
+                // t.objectProperty(
+                //   t.identifier("render"),
+                //   t.memberExpression(
+                //     t.identifier("template"),
+                //     t.identifier("render")
+                //   )
+                // ),
                 t.objectMethod(
                   "method",
                   t.identifier("setup"),
