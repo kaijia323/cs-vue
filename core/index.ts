@@ -12,9 +12,9 @@ const startCompiler = (content: string) => {
   const isSetup = script ? false : scriptSetup.setup;
   complierScript(scriptCode, isSetup);
   const compilerResultFunctions = complierTemplate(template);
-  console.log(compilerResultFunctions);
+  console.log("compilerResultFunctions", compilerResultFunctions);
   const compilerResultStyle = complierStyle(styles);
-  console.log(compilerResultStyle);
+  console.log("compilerResultStyle", compilerResultStyle);
 };
 
 export { startCompiler };
