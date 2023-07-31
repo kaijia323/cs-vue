@@ -17,12 +17,14 @@ const scriptSetupPlugin = (): MyPlugin => {
     return {
       visitor: {
         Program(path) {
-          const body = path.node.body.filter(item =>
-            t.isVariableDeclaration(item)
+          const body = path.node.body.filter(
+            item => !t.isImportDeclaration(item)
           ) as VariableDeclaration[];
-          const names = body.map(item => {
-            return (item.declarations[0].id as Identifier).name;
-          });
+          const names = body
+            .filter(item => t.isVariableDeclaration(item))
+            .map(item => {
+              return (item.declarations[0].id as Identifier).name;
+            });
           const v = t.expressionStatement(
             t.newExpression(t.identifier("Vue2"), [
               t.objectExpression([

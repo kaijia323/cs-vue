@@ -11,7 +11,12 @@ interface IParams {
   watch?: any;
 }
 
-const startCompiler = (content: string) => {
+type IResult = (params: IParams) => {
+  vm: any;
+  style: string;
+};
+
+const startCompiler = (content: string): IResult => {
   const sfcDescriptor = parseComponent(content);
   console.log("sfcDescriptor", sfcDescriptor);
   // @ts-ignore
@@ -36,15 +41,18 @@ const startCompiler = (content: string) => {
   );
   console.log("fn: ", fn);
   return (params: IParams) => {
-    return fn.call(
-      undefined,
-      params.Vue,
-      params.ref,
-      params.reactive,
-      params.computed,
-      params.watch,
-      compilerResultFunctions.code?.render
-    );
+    return {
+      vm: fn.call(
+        undefined,
+        params.Vue,
+        params.ref,
+        params.reactive,
+        params.computed,
+        params.watch,
+        compilerResultFunctions.code?.render
+      ),
+      style: compilerResultStyle.code,
+    };
   };
 };
 
