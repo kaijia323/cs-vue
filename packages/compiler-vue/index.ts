@@ -1,6 +1,6 @@
 import { parseComponent } from "vue-template-compiler";
-import complierScript from "./complierScript";
-import complierTemplate from "./complierTemplate";
+import complierScript from "./compilerScript";
+import complierTemplate from "./compilerTemplate";
 import complierStyle from "./compilerStyle";
 
 interface IParams {

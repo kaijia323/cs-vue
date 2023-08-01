@@ -1,0 +1,18 @@
+{
+  "name": "compiler-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/standalone": "^7.22.9",
+    "vue-template-compiler": "^2.7.14"
+  },
+  "devDependencies": {
+    "@types/babel-types": "^7.0.11",
+    "@types/babel__core": "^7.20.1",
+    "@types/babel__standalone": "^7.1.4"
+  }
+}

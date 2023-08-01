@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import demoStr from "./demo.vue?raw";
-import { startCompiler } from "~/core";
+// import { startCompiler } from "~/packages/core";
+import { startCompiler } from "compiler-vue";
 import Vue2, { ref, reactive, watch, computed } from "vue2";
 
 // 将 demoStr 转换成下面的格式
