@@ -23,6 +23,9 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
   ],
+  esbuild: {
+    drop: ["console", "debugger"],
+  },
   build: {
     outDir: resolve(__dirname, "./packages/compiler-vue/dist"),
     lib: {
