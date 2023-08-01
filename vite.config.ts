@@ -14,4 +14,18 @@ export default defineConfig({
     },
   },
   plugins: [vue()],
+  build: {
+    outDir: resolve(__dirname, "./packages/compiler-vue/dist"),
+    lib: {
+      entry: resolve(__dirname, "./packages/compiler-vue/index.ts"),
+      formats: ["es", "cjs"],
+      fileName(format) {
+        if (format === "es") {
+          return "compiler-vue.esm-browser.js";
+        } else {
+          return "compiler-vue.cjs.js";
+        }
+      },
+    },
+  },
 });

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import demoStr from "./demo.vue?raw";
-// import { startCompiler } from "~/packages/core";
+// import { startCompiler } from "~/dist/compiler-vue-esm";
 import { startCompiler } from "compiler-vue";
 import Vue2, { ref, reactive, watch, computed } from "vue2";
 

@@ -1,11 +1,21 @@
 {
   "name": "compiler-vue",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "compiler-vue",
+  "main": "dist/compiler-vue.cjs.js",
+  "module": "dist/compiler-vie.esm-browser.js",
   "keywords": [],
-  "author": "",
+  "author": "kaijia323",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs-vue.git",
+    "directory": "packages/compiler-vue"
+  },
+  "bugs": {
+    "url": "https://github.com/cs-vue/issues"
+  },
+  "homepage": "https://github.com/cs-vue/packages/compiler-vue",
   "dependencies": {
     "@babel/standalone": "^7.22.9",
     "vue-template-compiler": "^2.7.14"
