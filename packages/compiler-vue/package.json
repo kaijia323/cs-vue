@@ -4,6 +4,7 @@
   "description": "compiler-vue",
   "main": "dist/compiler-vue.cjs.js",
   "module": "dist/compiler-vue.esm-browser.js",
+  "types": "compiler-vue.esm-browser.d.ts",
   "exports": {
     ".": {
       "import": "./dist/compiler-vue.esm-browser.js",

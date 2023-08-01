@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "node:path";
+import dts from "vite-plugin-dts";
 
 const __dirname = resolve();
 
@@ -13,7 +14,15 @@ export default defineConfig({
       "@": resolve(__dirname, "./src"),
     },
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    dts({
+      // entryRoot: resolve(__dirname, "./packages/compiler-vue"),
+      include: ["packages/**/*.ts", "packages/**/*.d.ts"],
+      rollupTypes: true,
+      insertTypesEntry: true,
+    }),
+  ],
   build: {
     outDir: resolve(__dirname, "./packages/compiler-vue/dist"),
     lib: {
