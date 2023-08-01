@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "description": "compiler-vue",
   "main": "dist/compiler-vue.cjs.js",
-  "module": "dist/compiler-vie.esm-browser.js",
+  "module": "dist/compiler-vue.esm-browser.js",
+  "exports": {
+    ".": {
+      "import": "./dist/compiler-vue.esm-browser.js",
+      "require": "./dist/compiler-vue.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "kaijia323",
   "license": "ISC",
