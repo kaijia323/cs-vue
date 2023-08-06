@@ -1,43 +1,40 @@
 <script setup lang="ts">
 import demoStr from "./demo.vue?raw";
 // import { startCompiler } from "~/dist/compiler-vue-esm";
-import { startCompiler } from "compiler-vue";
-import Vue2, { ref, reactive, watch, computed } from "vue2";
+// import { startCompiler } from "compiler-vue";
+import { startCompiler } from "~/packages/compiler-vue/index";
+import { ref } from "vue";
+import { assertHtml } from "./tools";
 
 // 将 demoStr 转换成下面的格式
-// new Vue2({
-//   render,
+
+// import Vue, { ref, watch, computed } from "vue";
+// new Vue({
+//   el: "#app",
+//   template: `<div>sss</div>`,
 //   setup() {
 //     const a = ref(1);
-//     const handleClick = () => {console.log(123)}
+//     const handleClick = () => {
+//       console.log(123);
+//     };
 //     return {
 //       a,
 //       handleClick,
 //     };
 //   },
-// });
+// }).$mount();
+
+const srcdoc = ref("");
+
 const handleClick = () => {
-  const result = startCompiler(demoStr).call(undefined, {
-    Vue: Vue2,
-    ref,
-    reactive,
-    watch,
-    computed,
-  });
+  const result = startCompiler(demoStr);
   console.log(result);
-  const { vm, style } = result;
-  const app = vm.$mount();
-  // document.getElementById("shadow")?.appendChild(vm.$el);
-  const div = document.getElementById("shadow")!;
-  const shadow = div.attachShadow({ mode: "open" });
-  const _style = document.createElement("style");
-  _style.textContent = style;
-  shadow.appendChild(_style);
-  shadow.appendChild(app.$el);
+  srcdoc.value = assertHtml(result.vm, result.style);
 };
 </script>
 
 <template>
-  <div id="shadow"></div>
   <button @click="handleClick">点击</button>
+  <br />
+  <iframe :srcdoc="srcdoc"></iframe>
 </template>

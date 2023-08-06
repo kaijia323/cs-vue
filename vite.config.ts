@@ -5,8 +5,10 @@ import dts from "vite-plugin-dts";
 
 const __dirname = resolve();
 
+// console.log(process.env.NODE_ENV === "development");
+
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(() => ({
   server: { open: true },
   resolve: {
     alias: {
@@ -24,7 +26,10 @@ export default defineConfig({
     }),
   ],
   esbuild: {
-    drop: ["console", "debugger"],
+    drop:
+      process.env.NODE_ENV === "development"
+        ? undefined
+        : ["console", "debugger"],
   },
   build: {
     outDir: resolve(__dirname, "./packages/compiler-vue/dist"),
@@ -40,4 +45,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

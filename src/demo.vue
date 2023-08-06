@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from "vue";
+import Vue, { ref, watch, computed } from "vue";
 
 const name = ref("名字");
 const newName = computed(() => {

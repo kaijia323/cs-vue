@@ -1,5 +1,9 @@
 import { PluginItem } from "@babel/core";
-import type { Identifier, VariableDeclaration } from "babel-types";
+import type {
+  Identifier,
+  ImportDeclaration,
+  VariableDeclaration,
+} from "babel-types";
 
 type MyPlugin = (item: { types: typeof import("babel-types") }) => PluginItem;
 
@@ -12,7 +16,7 @@ const scriptPlugin = (): MyPlugin => {
   };
 };
 
-const scriptSetupPlugin = (): MyPlugin => {
+const scriptSetupPlugin = (template: string): MyPlugin => {
   return ({ types: t }) => {
     return {
       visitor: {
@@ -20,52 +24,58 @@ const scriptSetupPlugin = (): MyPlugin => {
           const body = path.node.body.filter(
             item => !t.isImportDeclaration(item)
           ) as VariableDeclaration[];
+          const imports = path.node.body.filter(item =>
+            t.isImportDeclaration(item)
+          ) as ImportDeclaration[];
           const names = body
             .filter(item => t.isVariableDeclaration(item))
             .map(item => {
               return (item.declarations[0].id as Identifier).name;
             });
           const v = t.expressionStatement(
-            t.newExpression(t.identifier("Vue2"), [
-              t.objectExpression([
-                t.objectProperty(
-                  t.identifier("render"),
-                  t.identifier("render"),
-                  false,
-                  true
-                ),
-                // t.objectProperty(
-                //   t.identifier("render"),
-                //   t.memberExpression(
-                //     t.identifier("template"),
-                //     t.identifier("render")
-                //   )
-                // ),
-                t.objectMethod(
-                  "method",
-                  t.identifier("setup"),
-                  [],
-                  t.blockStatement([
-                    ...body,
-                    t.returnStatement(
-                      t.objectExpression([
-                        ...names.map(name =>
-                          t.objectProperty(
-                            t.identifier(name),
-                            t.identifier(name),
-                            false,
-                            true
-                          )
+            t.callExpression(
+              t.memberExpression(
+                t.newExpression(t.identifier("Vue"), [
+                  t.objectExpression([
+                    t.objectProperty(
+                      t.identifier("el"),
+                      t.identifier(JSON.stringify("#app"))
+                    ),
+                    t.objectProperty(
+                      t.identifier("template"),
+                      t.identifier(JSON.stringify(template)),
+                      false,
+                      false
+                    ),
+                    t.objectMethod(
+                      "method",
+                      t.identifier("setup"),
+                      [],
+                      t.blockStatement([
+                        ...body,
+                        t.returnStatement(
+                          t.objectExpression([
+                            ...names.map(name =>
+                              t.objectProperty(
+                                t.identifier(name),
+                                t.identifier(name),
+                                false,
+                                true
+                              )
+                            ),
+                          ])
                         ),
                       ])
                     ),
-                  ])
-                ),
-              ]),
-            ])
+                  ]),
+                ]),
+                t.identifier("$mount")
+              ),
+              []
+            )
           );
           // @ts-ignore
-          path.node.body = [v];
+          path.node.body = [...imports, v];
         },
       },
     };
