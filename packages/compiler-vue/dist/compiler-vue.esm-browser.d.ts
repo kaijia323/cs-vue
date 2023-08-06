@@ -1,12 +1,4 @@
-declare interface IParams {
-    Vue?: any;
-    ref?: any;
-    reactive?: any;
-    computed?: any;
-    watch?: any;
-}
-
-declare type IResult = (params: IParams) => {
+declare type IResult = {
     vm: any;
     style: string;
 };

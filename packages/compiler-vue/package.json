@@ -1,6 +1,6 @@
 {
   "name": "compiler-vue",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "compiler-vue",
   "main": "dist/compiler-vue.cjs.js",
   "module": "dist/compiler-vue.esm-browser.js",
