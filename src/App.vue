@@ -36,5 +36,12 @@ const handleClick = () => {
 <template>
   <button @click="handleClick">点击</button>
   <br />
-  <iframe :srcdoc="srcdoc"></iframe>
+  <iframe frameborder="0" :srcdoc="srcdoc"></iframe>
 </template>
+
+<style>
+iframe {
+  width: 100%;
+  height: 88vh;
+}
+</style>
